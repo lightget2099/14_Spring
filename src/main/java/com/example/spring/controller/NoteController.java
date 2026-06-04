@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/note")
 @RequiredArgsConstructor
 public class NoteController {
-    @Autowired
+
     private final NoteServiceImpl noteService;
 
     @PostMapping("/create")
