@@ -1,5 +1,6 @@
 package com.example.spring.entity;
 
+
 public class Note {
     private long id;
     private String title;
