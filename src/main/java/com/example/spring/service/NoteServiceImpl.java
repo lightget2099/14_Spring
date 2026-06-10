@@ -1,50 +1,47 @@
 package com.example.spring.service;
 
 import com.example.spring.entity.Note;
+import com.example.spring.repository.NoteRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
+@RequiredArgsConstructor
 public class NoteServiceImpl implements NoteService {
-    //щось по типу БД, наше фейкове сховище
-    private Map<Long, Note> notes = new HashMap<>();
-    private long noteIdCounter = 1;
+    @Autowired
+    private final NoteRepository noteRepository;
+
 
     @Override
     public List<Note> listAll() {
-        return new ArrayList<>(notes.values());
+        return noteRepository.findAll();
     }
 
     @Override
     public Note add(Note note) {
-        note.setId(noteIdCounter);
-        noteIdCounter++;
-        notes.put(note.getId(), note);
+        noteRepository.save(note);
         return note;
     }
 
     @Override
     public void deleteById(long id) {
-        if (notes.containsKey(id)) {
-            notes.remove(id);
-        } else throw new RuntimeException("Note with id " + id + " not found");
+        if(noteRepository.existsById(id)){
+            noteRepository.deleteById(id);
+        } else throw new RuntimeException("Note not found");
     }
 
     @Override
     public void update(Note note) {
-        if (notes.containsKey(note.getId())) {
-            notes.put(note.getId(), note);
+        if(noteRepository.existsById(note.getId())){
+            noteRepository.save(note);
         } else throw new RuntimeException("Note with id " + note.getId() + " not found");
     }
 
     @Override
     public Note getById(long id) {
-        if (notes.containsKey(id)) {
-            return notes.get(id);
-        } else throw new RuntimeException("Note with id " + id + " not found");
+        return noteRepository.findById(id).orElseThrow(() -> new RuntimeException("can`t find id"));
     }
 }
