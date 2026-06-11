@@ -27,7 +27,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         if(noteRepository.existsById(id)){
             noteRepository.deleteById(id);
         } else throw new RuntimeException("Note not found");
@@ -41,7 +41,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note getById(long id) {
+    public Note getById(Long id) {
         return noteRepository.findById(id).orElseThrow(() -> new RuntimeException("can`t find id"));
     }
 }

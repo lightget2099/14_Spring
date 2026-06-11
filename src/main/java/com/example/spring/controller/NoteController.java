@@ -3,7 +3,6 @@ package com.example.spring.controller;
 import com.example.spring.entity.Note;
 import com.example.spring.service.NoteServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,20 +38,20 @@ public class NoteController {
     }
 
     @PostMapping("/delete")
-    public ModelAndView deleteNote(@RequestParam("id") long id) {
+    public ModelAndView deleteNote(@RequestParam("id") Long id) {
         noteService.deleteById(id);
         return new ModelAndView("redirect:/note/list");
     }
 
     @GetMapping("/edit")
-    public ModelAndView editNote(@RequestParam("id") long id) {
+    public ModelAndView editNote(@RequestParam("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("note/edit");
         modelAndView.addObject("note", noteService.getById(id));
         return modelAndView;
     }
 
     @PostMapping("/edit")
-    public ModelAndView editV2(@RequestParam("id") long id,
+    public ModelAndView editV2(@RequestParam("id") Long id,
                                @RequestParam("content") String content,
                                @RequestParam("title") String title
                                ) {
