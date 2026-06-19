@@ -9,11 +9,7 @@ import org.springframework.stereotype.Component;
 public class NoteMapper {
 
     public NoteResponseDto toDto(Note note) {
-        NoteResponseDto noteResponseDto = new NoteResponseDto();
-        noteResponseDto.setId(note.getId());
-        noteResponseDto.setTitle(note.getTitle());
-        noteResponseDto.setContent(note.getContent());
-        return noteResponseDto;
+      return new NoteResponseDto(note.getId(), note.getTitle(), note.getContent());
     }
 
     public Note toEntity(NoteRequestDto noteRequestDto) {

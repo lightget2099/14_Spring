@@ -1,16 +1,13 @@
 package com.example.spring.dto;
 
+import lombok.Value;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
+@Value
 public class NoteResponseDto {
-    private Long id;
+    Long id;
 
-    private String title;
+    String title;
 
-    private String content;
+    String content;
 
 }
